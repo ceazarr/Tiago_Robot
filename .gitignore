@@ -1,0 +1,33 @@
+# ROS / Catkin / Colcon build files
+build/
+devel/
+install/
+log/
+
+# Python artifacts
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# ROS Bag files (Massive data files - DO NOT PUSH)
+*.bag
+*.bag.*
+
+# IDE files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+
+# C++ compiled objects and libraries
+*.o
+*.so
+*.out
+*.a
+
+# CMake generated files (if run outside of standard ROS build tools)
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
