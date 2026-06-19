@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="open_top_laundry_basket">
+    <static>false</static>
+    <link name="link">
+      <inertial>
+        <mass>0.6</mass>
+        <inertia>
+          <ixx>0.01</ixx><iyy>0.01</iyy><izz>0.01</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <collision name="bottom">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.34 0.28 0.02</size></box></geometry>
+      </collision>
+      <visual name="bottom_v">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.34 0.28 0.02</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+
+      <collision name="front">
+        <pose>-0.16 0 0.10 0 0 0</pose>
+        <geometry><box><size>0.02 0.28 0.20</size></box></geometry>
+      </collision>
+      <visual name="front_v">
+        <pose>-0.16 0 0.10 0 0 0</pose>
+        <geometry><box><size>0.02 0.28 0.20</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+
+      <collision name="back">
+        <pose>0.16 0 0.10 0 0 0</pose>
+        <geometry><box><size>0.02 0.28 0.20</size></box></geometry>
+      </collision>
+      <visual name="back_v">
+        <pose>0.16 0 0.10 0 0 0</pose>
+        <geometry><box><size>0.02 0.28 0.20</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+
+      <collision name="left">
+        <pose>0 0.13 0.10 0 0 0</pose>
+        <geometry><box><size>0.34 0.02 0.20</size></box></geometry>
+      </collision>
+      <visual name="left_v">
+        <pose>0 0.13 0.10 0 0 0</pose>
+        <geometry><box><size>0.34 0.02 0.20</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+
+      <collision name="right">
+        <pose>0 -0.13 0.10 0 0 0</pose>
+        <geometry><box><size>0.34 0.02 0.20</size></box></geometry>
+      </collision>
+      <visual name="right_v">
+        <pose>0 -0.13 0.10 0 0 0</pose>
+        <geometry><box><size>0.34 0.02 0.20</size></box></geometry>
+        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

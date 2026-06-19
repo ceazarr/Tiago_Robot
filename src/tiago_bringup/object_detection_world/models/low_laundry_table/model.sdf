@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="low_laundry_table">
+    <static>true</static>
+    <link name="link">
+
+      <!-- Table top: 2.20 m x 1.00 m, top surface height = 0.42 m -->
+      <collision name="top_collision">
+        <pose>0 0 0.40 0 0 0</pose>
+        <geometry>
+          <box><size>2.20 1.00 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="top_visual">
+        <pose>0 0 0.40 0 0 0</pose>
+        <geometry>
+          <box><size>2.20 1.00 0.04</size></box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.35 0.18 1</ambient>
+          <diffuse>0.65 0.42 0.22 1</diffuse>
+        </material>
+      </visual>
+
+      <collision name="leg1_collision">
+        <pose>0.98 0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+      </collision>
+      <visual name="leg1_visual">
+        <pose>0.98 0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+        <material><ambient>0.25 0.25 0.25 1</ambient><diffuse>0.35 0.35 0.35 1</diffuse></material>
+      </visual>
+
+      <collision name="leg2_collision">
+        <pose>-0.98 0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+      </collision>
+      <visual name="leg2_visual">
+        <pose>-0.98 0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+        <material><ambient>0.25 0.25 0.25 1</ambient><diffuse>0.35 0.35 0.35 1</diffuse></material>
+      </visual>
+
+      <collision name="leg3_collision">
+        <pose>0.98 -0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+      </collision>
+      <visual name="leg3_visual">
+        <pose>0.98 -0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+        <material><ambient>0.25 0.25 0.25 1</ambient><diffuse>0.35 0.35 0.35 1</diffuse></material>
+      </visual>
+
+      <collision name="leg4_collision">
+        <pose>-0.98 -0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+      </collision>
+      <visual name="leg4_visual">
+        <pose>-0.98 -0.42 0.19 0 0 0</pose>
+        <geometry><box><size>0.06 0.06 0.38</size></box></geometry>
+        <material><ambient>0.25 0.25 0.25 1</ambient><diffuse>0.35 0.35 0.35 1</diffuse></material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

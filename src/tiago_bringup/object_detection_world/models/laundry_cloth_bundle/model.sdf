@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="laundry_cloth_bundle">
+    <static>false</static>
+    <link name="link">
+      <inertial>
+        <mass>0.12</mass>
+        <inertia>
+          <ixx>0.002</ixx><iyy>0.002</iyy><izz>0.002</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <collision name="cloth_base">
+        <pose>0 0 0.025 0 0 0</pose>
+        <geometry><box><size>0.20 0.14 0.04</size></box></geometry>
+      </collision>
+      <visual name="cloth_base_v">
+        <pose>0 0 0.025 0 0 0</pose>
+        <geometry><box><size>0.20 0.14 0.04</size></box></geometry>
+        <material><ambient>0.05 0.15 0.8 1</ambient><diffuse>0.05 0.20 1.0 1</diffuse></material>
+      </visual>
+
+      <collision name="cloth_fold_1">
+        <pose>0.02 0.02 0.055 0.15 0.05 0.25</pose>
+        <geometry><box><size>0.15 0.08 0.03</size></box></geometry>
+      </collision>
+      <visual name="cloth_fold_1_v">
+        <pose>0.02 0.02 0.055 0.15 0.05 0.25</pose>
+        <geometry><box><size>0.15 0.08 0.03</size></box></geometry>
+        <material><ambient>0.25 0.05 0.65 1</ambient><diffuse>0.35 0.10 0.85 1</diffuse></material>
+      </visual>
+
+      <collision name="cloth_fold_2">
+        <pose>-0.03 -0.03 0.075 -0.12 0.04 -0.20</pose>
+        <geometry><box><size>0.12 0.07 0.025</size></box></geometry>
+      </collision>
+      <visual name="cloth_fold_2_v">
+        <pose>-0.03 -0.03 0.075 -0.12 0.04 -0.20</pose>
+        <geometry><box><size>0.12 0.07 0.025</size></box></geometry>
+        <material><ambient>0.05 0.30 0.80 1</ambient><diffuse>0.10 0.45 1.00 1</diffuse></material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>
