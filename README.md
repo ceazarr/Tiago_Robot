@@ -1,31 +1,43 @@
-### Vision (Segmentation and Tracking)
+# Vision (Segmentation and Tracking)
 
-## Commands to run:
+## Commands to run
 
-  1. Pull the changes:
-     
-    git pull
-  
-  3. Build the updated workspace:
-  Build the workspace using the simulation docker wrapper:
+### 1. Pull the changes
 
-    ./docker/run_sim.sh -b
+```bash
+git pull
+```
 
-  5. Run the simulation:
-  6. 
-    ./docker/run_sim.sh
-  
-  7. Launch the node (inside the container shell):
-    # 1. Find the active CONTAINER ID (Look for the most recently created 'tiago_tutorials' container)
+### 3. Build the updated workspace
 
-    docker ps
-    
-    # 2. Enter the container using that ID
-    
-    docker exec -it <YOUR_CONTAINER_ID> bash
+Build the workspace using the simulation docker wrapper:
 
-    # 3. Source the workspace and launch
-    
-    source /tiago_public_ws/devel/setup.bash
-    source devel/setup.bash
-    roslaunch tiago_vision tiago_vision.launch
+```bash
+./docker/run_sim.sh -b
+```
+
+### 5. Run the simulation
+
+### 6.
+
+```bash
+./docker/run_sim.sh
+```
+
+### 7. Launch the node (inside the container shell)
+
+```bash
+# 1. Find the active CONTAINER ID (Look for the most recently created 'tiago_tutorials' container)
+
+docker ps
+
+# 2. Enter the container using that ID
+
+docker exec -it <YOUR_CONTAINER_ID> bash
+
+# 3. Source the workspace and launch
+
+source /tiago_public_ws/devel/setup.bash
+source devel/setup.bash
+roslaunch tiago_vision tiago_vision.launch
+```
