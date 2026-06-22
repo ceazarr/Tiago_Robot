@@ -1,0 +1,50 @@
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[Kbool rover_controller::Controller::initialize(ros::NodeHandle&)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:28:5:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator=[m[K’ (operand types are ‘[01m[Kros::Publisher[m[K’ and ‘[01m[Kros::Subscriber[m[K’)
+   28 |     [01;31m[Kgoal_sub_[m[K
+      |     [01;31m[K^~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/noetic/include/ros/node_handle.h:32[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:45[m[K,
+                 from [01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/include/rover_controller/controller.h:4[m[K,
+                 from [01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:1[m[K:
+[01m[K/opt/ros/noetic/include/ros/publisher.h:57:16:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kros::Publisher& ros::Publisher::operator=(const ros::Publisher&)[m[K’
+   57 |     Publisher& [01;36m[Koperator[m[K=(const Publisher& other) = default;
+      |                [01;36m[K^~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/publisher.h:57:43:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kros::Subscriber[m[K’ to ‘[01m[Kconst ros::Publisher&[m[K’
+   57 |     Publisher& operator=([01;36m[Kconst Publisher& other[m[K) = default;
+      |                          [01;36m[K~~~~~~~~~~~~~~~~~^~~~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:36:91:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[K,[m[K’ token
+   36 |                              &Controller::/*#>>>>TODO: The NAME of the callback function*/[01;31m[K,[m[K this);
+      |                                                                                           [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:43:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   43 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K v))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:47:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   47 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:51:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   51 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:55:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   55 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:59:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   59 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[KEigen::Vector3d rover_controller::Controller::roverPos()[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:267:45:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+  267 |         /*#>>>>TODO: the source frame name*/[01;31m[K,[m[K ros::Time(0), transform);
+      |                                             [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[Kvoid rover_controller::Controller::goalCallback(const PoseStampedConstPtr&)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:307:24:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[KQ_b_w[m[K’
+  307 |     Eigen::Quaterniond [01;31m[KQ_b_w[m[K(
+      |                        [01;31m[K^~~~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:313:25:[m[K [01;31m[Kerror: [m[K‘[01m[KQ_b_w[m[K’ was not declared in this scope
+  313 |     Eigen::Matrix2d M = [01;31m[KQ_b_w[m[K.toRotationMatrix().topLeftCorner(2,2);
+      |                         [01;31m[K^~~~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[Kvoid rover_controller::Controller::obstacleCallback(const ObjectsConstPtr&)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:334:5:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K}[m[K’ token
+  334 |     [01;31m[K}[m[K
+      |     [01;31m[K^[m[K
+make[2]: *** [CMakeFiles/rover_controller.dir/build.make:63: CMakeFiles/rover_controller.dir/src/controller.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1299: CMakeFiles/rover_controller.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

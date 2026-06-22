@@ -1,0 +1,12 @@
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:101:3:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[K{[m[K’ token
+  101 |   [01;31m[K{[m[K
+      |   [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:136:3:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[K{[m[K’ token
+  136 |   [01;31m[K{[m[K
+      |   [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:160:3:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[K{[m[K’ token
+  160 |   [01;31m[K{[m[K
+      |   [01;31m[K^[m[K
+make[2]: *** [CMakeFiles/rover_controller.dir/build.make:63: CMakeFiles/rover_controller.dir/src/controller.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1299: CMakeFiles/rover_controller.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

@@ -1,0 +1,44 @@
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[Kbool rover_controller::Controller::initialize(ros::NodeHandle&)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:28:14:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[Kgoal_sub_[m[K’
+   28 |     goal_sub_
+      |              [01;31m[K^[m[K
+      |              [32m[K;[m[K
+   29 | 
+   30 |     [32m[Kgoal_sub_[m[K = nh.subscribe("/move_base_simple/goal", 1,
+      |     [32m[K~~~~~~~~~[m[K 
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:36:91:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[K,[m[K’ token
+   36 |                              &Controller::/*#>>>>TODO: The NAME of the callback function*/[01;31m[K,[m[K this);
+      |                                                                                           [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:43:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   43 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K v))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:47:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   47 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:51:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   51 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:55:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   55 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:59:54:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+   59 |     if(!ros::param::get(/*#>>>>TODO: PARAMETER NAME*/[01;31m[K,[m[K d))
+      |                                                      [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[KEigen::Vector3d rover_controller::Controller::roverPos()[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:267:45:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+  267 |         /*#>>>>TODO: the source frame name*/[01;31m[K,[m[K ros::Time(0), transform);
+      |                                             [01;31m[K^[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[Kvoid rover_controller::Controller::goalCallback(const PoseStampedConstPtr&)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:307:24:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[KQ_b_w[m[K’
+  307 |     Eigen::Quaterniond [01;31m[KQ_b_w[m[K(
+      |                        [01;31m[K^~~~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:313:25:[m[K [01;31m[Kerror: [m[K‘[01m[KQ_b_w[m[K’ was not declared in this scope
+  313 |     Eigen::Matrix2d M = [01;31m[KQ_b_w[m[K.toRotationMatrix().topLeftCorner(2,2);
+      |                         [01;31m[K^~~~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[Kvoid rover_controller::Controller::obstacleCallback(const ObjectsConstPtr&)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:334:5:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K}[m[K’ token
+  334 |     [01;31m[K}[m[K
+      |     [01;31m[K^[m[K
+make[2]: *** [CMakeFiles/rover_controller.dir/build.make:63: CMakeFiles/rover_controller.dir/src/controller.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1299: CMakeFiles/rover_controller.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

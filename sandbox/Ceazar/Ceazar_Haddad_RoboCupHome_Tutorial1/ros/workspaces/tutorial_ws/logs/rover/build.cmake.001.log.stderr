@@ -1,0 +1,14 @@
+[31m[1mCMake Error[0m at /home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover/CMakeLists.txt:108 (add_executable):
+  Cannot find source file:
+
+    src/rover_node.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm
+  .hpp .hxx .in .txx
+
+
+[31m[1mCMake Error[0m at /home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover/CMakeLists.txt:108 (add_executable):
+  No SOURCES given to target: rover_node
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

@@ -1,0 +1,10 @@
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:[m[K In member function ‘[01m[KEigen::Vector3d rover_controller::Controller::obstacleRepulsiveForce(std::vector<rover_controller::Obstacle>, const Vector3d&)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:137:17:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[KEigen::Vector3d force[m[K’
+  137 | Eigen::Vector3d [01;31m[Kforce[m[K = Eigen::Vector3d::Zero();
+      |                 [01;31m[K^~~~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover_controller/src/controller.cpp:133:21:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::Vector3d force[m[K’ previously declared here
+  133 |     Eigen::Vector3d [01;36m[Kforce[m[K = Eigen::Vector3d::Zero();
+      |                     [01;36m[K^~~~~[m[K
+make[2]: *** [CMakeFiles/rover_controller.dir/build.make:63: CMakeFiles/rover_controller.dir/src/controller.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1299: CMakeFiles/rover_controller.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

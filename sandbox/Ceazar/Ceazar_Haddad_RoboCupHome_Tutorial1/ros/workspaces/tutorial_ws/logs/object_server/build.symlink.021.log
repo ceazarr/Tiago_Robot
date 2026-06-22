@@ -1,0 +1,4 @@
+Linked: (/home/ceazar/ros/workspaces/tutorial_ws/devel/.private/object_server/lib/pkgconfig/object_server.pc, /home/ceazar/ros/workspaces/tutorial_ws/devel/lib/pkgconfig/object_server.pc)
+Linked: (/home/ceazar/ros/workspaces/tutorial_ws/devel/.private/object_server/lib/object_server/object_server_node, /home/ceazar/ros/workspaces/tutorial_ws/devel/lib/object_server/object_server_node)
+Linked: (/home/ceazar/ros/workspaces/tutorial_ws/devel/.private/object_server/share/object_server/cmake/object_serverConfig.cmake, /home/ceazar/ros/workspaces/tutorial_ws/devel/share/object_server/cmake/object_serverConfig.cmake)
+Linked: (/home/ceazar/ros/workspaces/tutorial_ws/devel/.private/object_server/share/object_server/cmake/object_serverConfig-version.cmake, /home/ceazar/ros/workspaces/tutorial_ws/devel/share/object_server/cmake/object_serverConfig-version.cmake)

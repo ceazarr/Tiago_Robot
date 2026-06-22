@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Start Simulated YOLO Detector (Bypassed) -->
+    <!-- <node name="yolo_detector_sim" pkg="tiago_vision" type="yolo_detector.py" output="screen"/> -->
+
+    <!-- Start C++ Box Object Point Cloud Segmenter -->
+    <node name="box_object_detector_node" pkg="tiago_vision" type="box_object_detector_node" output="screen">
+        <param name="workspace_x_min" value="0.5"/>
+        <param name="workspace_x_max" value="1.8"/>
+        <param name="workspace_y_min" value="-0.8"/>
+        <param name="workspace_y_max" value="0.8"/>
+        <param name="workspace_z_min" value="0.3"/>
+        <param name="workspace_z_max" value="1.2"/>
+        <param name="table_distance_threshold" value="0.02"/>
+        <param name="cluster_tolerance" value="0.08"/>
+        <param name="min_cluster_size" value="50"/>
+        <param name="max_cluster_size" value="100000"/>
+        <param name="wall_margin" value="0.03"/>
+        <param name="clothes_float_height" value="0.005"/>
+        <param name="box_max_height" value="0.40"/>
+    </node>
+</launch>

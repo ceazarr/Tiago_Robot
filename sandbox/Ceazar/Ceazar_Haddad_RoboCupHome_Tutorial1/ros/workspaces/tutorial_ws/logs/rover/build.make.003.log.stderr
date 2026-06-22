@@ -1,0 +1,13 @@
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover/src/applications/rover_node.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover/src/applications/rover_node.cpp:16:3:[m[K [01;31m[Kerror: [m[K‘[01m[Kros::Rate[m[K’ is not a class member
+   16 |   [01;31m[Kros[m[K::Rate rate(60);
+      |   [01;31m[K^~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover/src/applications/rover_node.cpp:29:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kros::spinOnce[m[K’ is not a class member
+   29 |     [01;31m[Kros[m[K::spinOnce();
+      |     [01;31m[K^~~[m[K
+[01m[K/home/ceazar/ros/workspaces/tutorial_ws/src/Tutorial1_template/rover/src/applications/rover_node.cpp:30:5:[m[K [01;31m[Kerror: [m[K‘[01m[Krate[m[K’ was not declared in this scope
+   30 |     [01;31m[Krate[m[K.sleep();
+      |     [01;31m[K^~~~[m[K
+make[2]: *** [CMakeFiles/rover_node.dir/build.make:63: CMakeFiles/rover_node.dir/src/applications/rover_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/rover_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

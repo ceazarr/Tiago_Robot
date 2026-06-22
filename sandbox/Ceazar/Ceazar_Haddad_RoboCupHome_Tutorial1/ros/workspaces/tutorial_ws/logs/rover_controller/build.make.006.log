@@ -1,0 +1,6 @@
+[35m[1mScanning dependencies of target rover_controller[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/rover_controller.dir/src/controller.cpp.o[0m
+[ 50%] [32m[1mLinking CXX shared library /home/ceazar/ros/workspaces/tutorial_ws/devel/.private/rover_controller/lib/librover_controller.so[0m
+[ 50%] Built target rover_controller
+[ 75%] [32m[1mLinking CXX executable /home/ceazar/ros/workspaces/tutorial_ws/devel/.private/rover_controller/lib/rover_controller/rover_controller_node[0m
+[100%] Built target rover_controller_node

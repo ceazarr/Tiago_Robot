@@ -1,51 +1,24 @@
-# Tiago Robot Final Project
+### Vision (Segmentation and Tracking)
 
-This repository is for the RoboCup@Home final system integration project with the TIAGo robot.
+## Commands to run:
 
-## Yuxiao's update: laundry room Gazebo world
+  1. Pull the changes:
+    git pull
+  
+  2. Build the updated workspace:
+  Build the workspace using the simulation docker wrapper:
+    ./docker/run_sim.sh -b
 
-This branch adds a Gazebo world package for the laundry-manipulation scenario.
+  3. Run the simulation:
+    ./docker/run_sim.sh
+  
+  4. Launch the node (inside the container shell):
+    # 1. Find the active CONTAINER ID (Look for the most recently created 'tiago_tutorials' container)
+    docker ps
+    # 2. Enter the container using that ID
+    docker exec -it <YOUR_CONTAINER_ID> bash
 
-## Added ROS package
-
-src/tiago_bringup/object_detection_world
-
-This package contains the launch file, RViz config, Gazebo world file, and Gazebo models needed to load the laundry-room scene.
-
-## New world
-
-src/tiago_bringup/object_detection_world/worlds/laundry_room.world
-
-The scene contains:
-
-- two low tables arranged face-to-face,
-- a source table with two boxes,
-- a front-open black box used as a simplified washing machine,
-- an open-top white box used as the laundry basket,
-- a simple rigid cloth proxy inside the front-open box,
-- an empty destination table,
-- simple surrounding walls for a more complete indoor scene.
-
-## New Gazebo models
-
-src/tiago_bringup/object_detection_world/models/low_laundry_table
-src/tiago_bringup/object_detection_world/models/front_open_laundry_box
-src/tiago_bringup/object_detection_world/models/open_top_laundry_basket
-src/tiago_bringup/object_detection_world/models/laundry_cloth_bundle
-
-The cloth is represented by a simple rigid proxy instead of a true deformable cloth model, because deformable cloth physics would make Gazebo simulation and grasping unstable.
-
-## How to run
-
-Inside the TIAGo Docker environment, put this repository in a catkin workspace and build it.
-
-First source the TIAGo workspace and this project workspace:
-
-source /tiago_public_ws/devel/setup.bash
-source <your_workspace>/devel/setup.bash
-
-Then launch the laundry world:
-
-roslaunch object_detection_world tiago.launch world_suffix:=laundry_room robot_pos:="-x 0.80 -y 0.0 -z 0.0 -Y 1.57"
-
-The suggested initial robot pose places TIAGo between the two tables, facing the source table and the front-open box.
+    # 3. Source the workspace and launch
+    source /tiago_public_ws/devel/setup.bash
+    source devel/setup.bash
+    roslaunch tiago_vision tiago_vision.launch

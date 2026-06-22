@@ -1,0 +1,7 @@
+# >>>TODO: this needs tunning
+
+waypoint_A: [1.4,-2.92,0.00283]
+waypoint_B: [-2.32,-6.25,0.002783]
+waypoint_C: [-1.37,-11.3,0.00279]
+
+target_pose: [0.4, -0.3, 0.26, -0.011, 1.57, 0.037]
