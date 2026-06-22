@@ -8,7 +8,7 @@
 git pull
 ```
 
-### 3. Build the updated workspace
+### 2. Build the updated workspace
 
 Build the workspace using the simulation docker wrapper:
 
@@ -16,15 +16,13 @@ Build the workspace using the simulation docker wrapper:
 ./docker/run_sim.sh -b
 ```
 
-### 5. Run the simulation
-
-### 6.
+### 3. Run the simulation
 
 ```bash
 ./docker/run_sim.sh
 ```
 
-### 7. Launch the node (inside the container shell)
+### 4. Launch the node (inside the container shell)
 
 ```bash
 # 1. Find the active CONTAINER ID (Look for the most recently created 'tiago_tutorials' container)
