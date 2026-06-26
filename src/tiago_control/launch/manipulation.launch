@@ -1,0 +1,34 @@
+<!-- <launch>
+  <node pkg="tiago_control"
+        type="manipulation_node.py"
+        name="laundry_manipulation_node"
+        output="screen">
+
+    <param name="desired_x" value="0.70"/>
+    <param name="x_tolerance" value="0.05"/>
+    <param name="y_tolerance" value="0.05"/>
+
+    <param name="max_linear_speed" value="0.08"/>
+    <param name="max_angular_speed" value="0.25"/>
+
+  </node>
+</launch> -->
+
+<launch>
+  <node pkg="tiago_control"
+        type="manipulation_node.py"
+        name="laundry_manipulation_node"
+        output="screen">
+
+    <!-- Base open-loop motion parameters -->
+    <param name="drive_speed" value="0.05"/>
+    <param name="turn_speed" value="0.25"/>
+
+    <!-- 90 deg = 1.57 rad. 1.57 / 0.25 ≈ 6.28 s -->
+    <param name="turn_90_duration" value="6.28"/>
+
+    <!-- Distance between Box A and Box B. Tune this in Gazebo. -->
+    <param name="box_distance" value="0.72"/>
+
+  </node>
+</launch>

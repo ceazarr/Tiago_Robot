@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tiago_control</name>
+  <version>0.0.1</version>
+  <description>Manipulation control package for the TIAGo laundry project.</description>
+
+  <maintainer email="TODO@todo.com">Weihao Xu</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>trajectory_msgs</depend>
+  <depend>control_msgs</depend>
+  <depend>actionlib</depend>
+  <depend>moveit_commander</depend>
+  <depend>moveit_msgs</depend>
+</package>
