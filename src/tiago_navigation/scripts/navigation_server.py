@@ -98,7 +98,8 @@ class LaundryNavigationServer:
         dist = math.sqrt(dx * dx + dy * dy)
         yaw_error = abs(normalize_angle(yaw - robot_yaw))
 
-        rospy.loginfo(
+        rospy.loginfo_throttle(
+            2.0,
             "Goal check: dist=%.3f m, yaw_error=%.3f rad",
             dist,
             yaw_error,

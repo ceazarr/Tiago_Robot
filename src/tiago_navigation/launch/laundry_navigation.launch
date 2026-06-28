@@ -6,8 +6,8 @@
     <param name="move_base_action" value="/move_base"/>
     <param name="default_frame" value="map"/>
     <param name="base_frame" value="base_footprint"/>
-    <param name="goal_timeout" value="90.0"/>
-    <param name="xy_tolerance" value="0.15"/>
+    <param name="goal_timeout" value="25.0"/>
+    <param name="xy_tolerance" value="0.30"/>
     <param name="yaw_tolerance" value="0.35"/>
   </node>
 </launch>
