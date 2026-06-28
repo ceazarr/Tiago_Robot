@@ -31,3 +31,10 @@ CMakeCache.txt
 CMakeFiles/
 Makefile
 cmake_install.cmake
+
+# Catkin build artifacts
+.catkin_tools/
+build/
+devel/
+logs/
+install/
