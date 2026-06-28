@@ -6,8 +6,11 @@
     <param name="move_base_action" value="/move_base"/>
     <param name="default_frame" value="map"/>
     <param name="base_frame" value="base_footprint"/>
-    <param name="goal_timeout" value="25.0"/>
-    <param name="xy_tolerance" value="0.30"/>
-    <param name="yaw_tolerance" value="0.35"/>
+    <param name="goal_timeout" value="45.0"/>
+    <param name="xy_tolerance" value="0.12"/>
+    <param name="yaw_tolerance" value="0.25"/>
+    <param name="default_standoff_distance" value="0.60"/>
+
+    <rosparam command="load" file="$(find laundry_navigation)/config/navigation_poses.yaml"/>
   </node>
 </launch>

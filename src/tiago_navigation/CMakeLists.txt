@@ -14,6 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
   FILES
   GoToPose.srv
+  GoToNamedPose.srv
+  GoToTargetFront.srv
 )
 
 generate_messages(
@@ -34,5 +36,6 @@ catkin_package(
 
 catkin_install_python(PROGRAMS
   scripts/navigation_server.py
+  scripts/target_front_autonav.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

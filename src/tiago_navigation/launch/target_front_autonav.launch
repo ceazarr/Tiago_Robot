@@ -1,0 +1,14 @@
+<launch>
+  <arg name="target_topic" default="/test_basket_target"/>
+  <arg name="standoff_distance" default="0.60"/>
+  <arg name="navigate_once" default="true"/>
+
+  <node pkg="laundry_navigation"
+        type="target_front_autonav.py"
+        name="target_front_autonav"
+        output="screen">
+    <param name="target_topic" value="$(arg target_topic)"/>
+    <param name="standoff_distance" value="$(arg standoff_distance)"/>
+    <param name="navigate_once" value="$(arg navigate_once)"/>
+  </node>
+</launch>
