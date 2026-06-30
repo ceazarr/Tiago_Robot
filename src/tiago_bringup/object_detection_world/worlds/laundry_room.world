@@ -102,21 +102,21 @@
     <include>
       <uri>model://front_open_laundry_box</uri>
       <name>washer_box_a_front_open</name>
-      <pose>0.30 1.02 0.42 0 0 1.5708</pose>
+      <pose>0.45 1.02 0.42 0 0 1.5708</pose>
     </include>
 
     <!-- Open-top basket on table A -->
     <include>
       <uri>model://open_top_laundry_basket</uri>
       <name>basket_box_b_open_top</name>
-      <pose>1.20 1.02 0.42 0 0 0</pose>
+      <pose>0.88 1.02 0.42 0 0 0</pose>
     </include>
 
     <!-- Cloth inside the front-open box -->
     <include>
       <uri>model://laundry_cloth_bundle</uri>
       <name>cloth_inside_washer_box</name>
-      <pose>0.30 1.03 0.45 0 0 0</pose>
+      <pose>0.45 1.03 0.50 0 0 0</pose>
     </include>
 
   </world>
