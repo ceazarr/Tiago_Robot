@@ -28,7 +28,7 @@
     <param name="turn_90_duration" value="6.28"/>
 
     <!-- Distance between Box A and Box B. Tune this in Gazebo. -->
-    <param name="box_distance" value="0.72"/>
+    <param name="box_distance" value="0.43"/>
 
   </node>
 </launch>
