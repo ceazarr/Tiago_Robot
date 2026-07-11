@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <!-- Start Simulated YOLO Detector (Bypassed) -->
-    <!-- <node name="yolo_detector_sim" pkg="tiago_vision" type="yolo_detector.py" output="screen"/> -->
+    <arg name="use_yolo_onnx" default="true" />
+    <arg name="point_cloud_topic" default="/xtion/depth_registered/points" />
+    <arg name="image_topic" default="/xtion/rgb/image_raw" />
+    <arg name="model_path" default="/dataset/runs/segment/train/weights/best.onnx" />
+
+    <!-- Start YOLO ONNX Detector -->
+    <group if="$(arg use_yolo_onnx)">
+        <node name="yolo_onnx_detector" pkg="tiago_vision" type="yolo_onnx_detector.py" output="screen">
+            <param name="model_path" value="$(arg model_path)" />
+            <param name="conf_threshold" value="0.5" />
+            <param name="iou_threshold" value="0.45" />
+            <param name="target_frame" value="base_footprint" />
+            <param name="downsample_step" value="10" />
+            <param name="image_topic" value="$(arg image_topic)" />
+            <param name="point_cloud_topic" value="$(arg point_cloud_topic)" />
+        </node>
+    </group>
 
     <!-- Start C++ Box Object Point Cloud Segmenter -->
     <node name="box_object_detector_node" pkg="tiago_vision" type="box_object_detector_node" output="screen">
+        <param name="point_cloud_topic" value="$(arg point_cloud_topic)"/>
         <param name="workspace_x_min" value="0.5"/>
         <param name="workspace_x_max" value="1.8"/>
         <param name="workspace_y_min" value="-0.8"/>

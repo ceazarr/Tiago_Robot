@@ -1,6 +1,9 @@
 services:
   tiago_simulation:
-    image: palroboticssl/tiago_tutorials:noetic
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tiago_simulation_custom:latest
     container_name: tiago_simulation_container
     network_mode: host
     privileged: true
@@ -12,6 +15,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ~/.Xauthority:/root/.Xauthority:ro
       - ../:/tiago_workspace
+      - /home/par1adux/dataset:/dataset
     working_dir: /tiago_workspace
     entrypoint: []
     stdin_open: true

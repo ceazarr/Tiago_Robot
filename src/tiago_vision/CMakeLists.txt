@@ -35,5 +35,6 @@ target_link_libraries(box_object_detector_node
 
 catkin_install_python(PROGRAMS
   src/yolo_detector.py
+  src/yolo_onnx_detector.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

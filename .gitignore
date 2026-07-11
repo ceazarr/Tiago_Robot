@@ -38,3 +38,12 @@ build/
 devel/
 logs/
 install/
+
+# Offline debian packages
+tiago_packages_full/
+*.deb
+
+# Large Model Weights & Backups (DO NOT PUSH)
+*.pt
+*.onnx
+*.bak
