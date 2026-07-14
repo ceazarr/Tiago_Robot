@@ -22,13 +22,13 @@
 
     <!-- Base open-loop motion parameters -->
     <param name="drive_speed" value="0.05"/>
-    <param name="turn_speed" value="0.25"/>
+    <param name="turn_speed" value="0.10"/>
 
-    <!-- 90 deg = 1.57 rad. 1.57 / 0.25 ≈ 6.28 s -->
-    <param name="turn_90_duration" value="6.28"/>
+    <!-- 90 deg = 1.57 rad. 1.57 / 0.10 ≈ 15.7 s -->
+    <param name="turn_90_duration" value="15.70"/>
 
     <!-- Distance between Box A and Box B. Tune this in Gazebo. -->
-    <param name="box_distance" value="0.72"/>
+    <param name="box_distance" value="0.25"/>
 
   </node>
 </launch>

@@ -74,8 +74,8 @@ class YoloOnnxDetector:
         self.debug_img_pub = rospy.Publisher('/tiago_vision/yolo_debug_image', Image, queue_size=1)
 
         # Mode
-        self.continuous_mode = rospy.get_param('~continuous_mode', False)
-        self.process_next = True if self.continuous_mode else False
+        self.continuous_mode = rospy.get_param('~continuous_mode', True)
+        self.process_next = True
         
         # Trigger service
         self.trigger_srv = rospy.Service('/tiago_vision/trigger_detection', Trigger, self.trigger_callback)
@@ -284,8 +284,8 @@ class YoloOnnxDetector:
         point_base.header.stamp = header.stamp
 
         if label == 'cloth':
-            top_point = pts_base[np.argmax(pts_base[:, 2])]
-            point_base.point.x, point_base.point.y, point_base.point.z = top_point.tolist()
+            centroid = pts_base.mean(axis=0)
+            point_base.point.x, point_base.point.y, point_base.point.z = centroid.tolist()
         elif label in ['boxA', 'boxB']:
             centroid = pts_base.mean(axis=0)
             point_base.point.x, point_base.point.y, point_base.point.z = centroid.tolist()

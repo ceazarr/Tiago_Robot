@@ -573,9 +573,11 @@
 import sys
 import rospy
 import moveit_commander
+from moveit_commander import conversions
 import sensor_msgs.point_cloud2 as pc2
 
 from geometry_msgs.msg import PointStamped, PoseStamped, Twist
+from moveit_msgs.msg import RobotTrajectory
 from sensor_msgs.msg import PointCloud2
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
@@ -587,6 +589,8 @@ class LaundryManipulationNode:
         self.latest_grasp = None
         self.latest_drop = None
         self.latest_table_cloud = None
+        self.latest_box_a_target = None
+        self.latest_box_b_target = None
         self.latest_box_a_cloud = None
         self.latest_box_b_cloud = None
         self.latest_box_a_floor_cloud = None
@@ -596,27 +600,36 @@ class LaundryManipulationNode:
         self.box_b_floor_z = None
 
         self.drive_speed = rospy.get_param("~drive_speed", 0.05)
-        self.turn_speed = rospy.get_param("~turn_speed", 0.25)
-        self.turn_90_duration = rospy.get_param("~turn_90_duration", 6.28)
-        self.box_distance = rospy.get_param("~box_distance", 0.72)
+        self.turn_speed = rospy.get_param("~turn_speed", 0.10)
+        self.turn_90_duration = rospy.get_param("~turn_90_duration", 15.70)
+        self.box_distance = rospy.get_param("~box_distance", 0.50)
         self.target_frame = rospy.get_param("~target_frame", "base_footprint")
         self.grasp_height_above_floor = rospy.get_param("~grasp_height_above_floor", 0.02)
         self.gripper_tip_offset = rospy.get_param("~gripper_tip_offset", 0.10)
+        self.box_a_length = rospy.get_param("~box_a_length", 0.30)
+        self.box_a_width = rospy.get_param("~box_a_width", 0.30)
+        self.box_a_height = rospy.get_param("~box_a_height", 0.38)
+        self.box_b_length = rospy.get_param("~box_b_length", 0.40)
+        self.box_b_width = rospy.get_param("~box_b_width", 0.30)
+        self.box_b_height = rospy.get_param("~box_b_height", 0.21)
+        self.box_wall_thickness = rospy.get_param("~box_wall_thickness", 0.03)
+        self.box_floor_thickness = rospy.get_param("~box_floor_thickness", 0.01)
+        self.box_safety_margin = rospy.get_param("~box_safety_margin", 0.02)
+        self.grasp_z_offset = rospy.get_param("~grasp_z_offset", 0.0)
 
         rospy.Subscriber("/tiago_vision/clothes_grasp_target", PointStamped, self.grasp_cb)
         rospy.Subscriber("/tiago_vision/clothes_drop_target", PointStamped, self.drop_cb)
-        rospy.Subscriber("/tiago_vision/table_cloud", PointCloud2, self.table_cloud_cb)
+        rospy.Subscriber("/tiago_vision/box_a_target", PointStamped, self.box_a_target_cb)
+        rospy.Subscriber("/tiago_vision/box_b_target", PointStamped, self.box_b_target_cb)
         rospy.Subscriber("/tiago_vision/box_a_cloud", PointCloud2, self.box_a_cloud_cb)
         rospy.Subscriber("/tiago_vision/box_b_cloud", PointCloud2, self.box_b_cloud_cb)
-        rospy.Subscriber("/tiago_vision/box_a_floor_cloud", PointCloud2, self.box_a_floor_cloud_cb)
-        rospy.Subscriber("/tiago_vision/box_b_floor_cloud", PointCloud2, self.box_b_floor_cloud_cb)
 
         self.cmd_vel_pub = rospy.Publisher("/mobile_base_controller/cmd_vel", Twist, queue_size=1)
         self.gripper_pub = rospy.Publisher("/gripper_controller/command", JointTrajectory, queue_size=1)
 
         moveit_commander.roscpp_initialize(sys.argv)
         self.scene = moveit_commander.PlanningSceneInterface()
-        self.arm = moveit_commander.MoveGroupCommander("arm_torso")
+        self.arm = moveit_commander.MoveGroupCommander("arm_torso", wait_for_servers=10.0)
         self.arm.set_planning_time(20.0)
         self.arm.set_num_planning_attempts(10)
         self.arm.set_max_velocity_scaling_factor(0.3)
@@ -633,6 +646,14 @@ class LaundryManipulationNode:
     def drop_cb(self, msg):
         if not self.executing:
             self.latest_drop = msg
+
+    def box_a_target_cb(self, msg):
+        if not self.executing:
+            self.latest_box_a_target = msg
+
+    def box_b_target_cb(self, msg):
+        if not self.executing:
+            self.latest_box_b_target = msg
 
     def table_cloud_cb(self, msg):
         if not self.executing:
@@ -656,6 +677,8 @@ class LaundryManipulationNode:
 
     def clear_latest_clouds(self):
         self.latest_table_cloud = None
+        self.latest_box_a_target = None
+        self.latest_box_b_target = None
         self.latest_box_a_cloud = None
         self.latest_box_b_cloud = None
         self.latest_box_a_floor_cloud = None
@@ -754,6 +777,29 @@ class LaundryManipulationNode:
 
         return None
 
+    def wait_for_box_target(self, box_name, timeout=10.0):
+        rospy.loginfo("Waiting for %s target...", box_name)
+        start = rospy.Time.now()
+        rate = rospy.Rate(10)
+
+        while (rospy.Time.now() - start).to_sec() < timeout and not rospy.is_shutdown():
+            target = self.latest_box_a_target if box_name == "box_a" else self.latest_box_b_target
+
+            if target is not None:
+                rospy.loginfo(
+                    "Got %s target: x=%.3f, y=%.3f, z=%.3f",
+                    box_name,
+                    target.point.x,
+                    target.point.y,
+                    target.point.z,
+                )
+                return target
+
+            rate.sleep()
+
+        rospy.logwarn("Timed out waiting for %s target.", box_name)
+        return None
+
     def wait_for_cloud(self, cloud_name, timeout=3.0, after_time=None):
         start = rospy.Time.now()
         rate = rospy.Rate(10)
@@ -829,6 +875,141 @@ class LaundryManipulationNode:
         ]:
             self.scene.remove_world_object(name)
         rospy.sleep(0.5)
+
+    def add_fixed_box_a_collisions(self, box_target):
+        if box_target is None:
+            rospy.logwarn("Cannot add Box A collision: missing /tiago_vision/box_a_target.")
+            return False
+
+        frame_id = box_target.header.frame_id or self.target_frame
+        center_x = box_target.point.x
+        center_y = box_target.point.y
+        center_z = box_target.point.z
+
+        length = self.box_a_length
+        width = self.box_a_width
+        height = self.box_a_height
+        margin = self.box_safety_margin
+        wall = self.box_wall_thickness
+        floor = self.box_floor_thickness
+
+        min_x = center_x - 0.5 * length - margin
+        max_x = center_x + 0.5 * length + margin
+        min_y = center_y - 0.5 * width - margin
+        max_y = center_y + 0.5 * width + margin
+        floor_z = center_z - 0.5 * height
+        wall_center_z = floor_z + 0.5 * height
+
+        self.box_a_floor_z = floor_z
+
+        usable_length = max(max_x - min_x, 0.10)
+        usable_width = max(max_y - min_y, 0.10)
+
+        self.add_collision_box(
+            "box_a_floor",
+            frame_id,
+            (center_x, center_y, floor_z - 0.5 * floor),
+            (usable_length, usable_width, floor),
+        )
+        self.add_collision_box(
+            "box_a_left_wall",
+            frame_id,
+            (center_x, max_y + 0.5 * wall, wall_center_z),
+            (usable_length, wall, height),
+        )
+        self.add_collision_box(
+            "box_a_right_wall",
+            frame_id,
+            (center_x, min_y - 0.5 * wall, wall_center_z),
+            (usable_length, wall, height),
+        )
+        self.add_collision_box(
+            "box_a_back_wall",
+            frame_id,
+            (max_x + 0.5 * wall, center_y, wall_center_z),
+            (wall, usable_width, height),
+        )
+        rospy.loginfo(
+            "Box A fixed collision from YOLO target: center=(%.3f, %.3f, %.3f), size=(%.2f, %.2f, %.2f)",
+            center_x,
+            center_y,
+            center_z,
+            length,
+            width,
+            height,
+        )
+        return True
+
+    def add_fixed_box_b_collisions(self, box_target):
+        if box_target is None:
+            rospy.logwarn("Cannot add Box B collision: missing /tiago_vision/box_b_target.")
+            return False
+
+        frame_id = box_target.header.frame_id or self.target_frame
+        center_x = box_target.point.x
+        center_y = box_target.point.y
+        center_z = box_target.point.z
+
+        length = self.box_b_length
+        width = self.box_b_width
+        height = self.box_b_height
+        margin = self.box_safety_margin
+        wall = self.box_wall_thickness
+        floor = self.box_floor_thickness
+
+        min_x = center_x - 0.5 * length - margin
+        max_x = center_x + 0.5 * length + margin
+        min_y = center_y - 0.5 * width - margin
+        max_y = center_y + 0.5 * width + margin
+        floor_z = center_z - 0.5 * height
+        wall_center_z = floor_z + 0.5 * height
+
+        self.box_b_floor_z = floor_z
+
+        usable_length = max(max_x - min_x, 0.10)
+        usable_width = max(max_y - min_y, 0.10)
+
+        self.add_collision_box(
+            "box_b_floor",
+            frame_id,
+            (center_x, center_y, floor_z - 0.5 * floor),
+            (usable_length, usable_width, floor),
+        )
+        self.add_collision_box(
+            "box_b_left_wall",
+            frame_id,
+            (center_x, max_y + 0.5 * wall, wall_center_z),
+            (usable_length, wall, height),
+        )
+        self.add_collision_box(
+            "box_b_right_wall",
+            frame_id,
+            (center_x, min_y - 0.5 * wall, wall_center_z),
+            (usable_length, wall, height),
+        )
+        self.add_collision_box(
+            "box_b_back_wall",
+            frame_id,
+            (max_x + 0.5 * wall, center_y, wall_center_z),
+            (wall, usable_width, height),
+        )
+        self.add_collision_box(
+            "box_b_front_wall",
+            frame_id,
+            (min_x - 0.5 * wall, center_y, wall_center_z),
+            (wall, usable_width, height),
+        )
+
+        rospy.loginfo(
+            "Box B fixed collision from YOLO target: center=(%.3f, %.3f, %.3f), size=(%.2f, %.2f, %.2f)",
+            center_x,
+            center_y,
+            center_z,
+            length,
+            width,
+            height,
+        )
+        return True
 
     def add_table_collision(self, table_cloud):
         bounds = self.point_cloud_bounds(table_cloud)
@@ -932,26 +1113,19 @@ class LaundryManipulationNode:
 
     def setup_collision_scene(self, phase, after_time=None):
         rospy.loginfo("Setting up %s collision scene...", phase)
-        table_cloud = self.wait_for_cloud("latest_table_cloud", after_time=after_time)
         self.clear_collision_scene()
 
-        if table_cloud is not None:
-            self.add_table_collision(table_cloud)
-
         if phase == "pick":
-            box_cloud = self.wait_for_cloud("latest_box_a_cloud", after_time=after_time)
-            floor_cloud = self.wait_for_cloud("latest_box_a_floor_cloud", after_time=after_time)
-            ok = self.add_box_wall_collisions(
-                "box_a",
-                box_cloud,
-                floor_cloud,
-                include_front_wall=False,
-                include_top_wall=True,
-            )
+            box_target = self.wait_for_box_target("box_a")
+            ok = self.add_fixed_box_a_collisions(box_target)
         else:
-            box_cloud = self.wait_for_cloud("latest_box_b_cloud", after_time=after_time)
-            floor_cloud = self.wait_for_cloud("latest_box_b_floor_cloud", after_time=after_time)
-            ok = self.add_box_wall_collisions("box_b", box_cloud, floor_cloud, include_front_wall=True)
+            box_target = self.wait_for_box_target("box_b")
+            if box_target is None and self.latest_drop is not None:
+                box_target = self.latest_drop
+                rospy.logwarn(
+                    "Using /tiago_vision/clothes_drop_target as Box B collision center."
+                )
+            ok = self.add_fixed_box_b_collisions(box_target)
 
         rospy.sleep(1.0)
         return ok
@@ -982,16 +1156,12 @@ class LaundryManipulationNode:
         rospy.sleep(2.0)
 
     def move_from_box_a_to_box_b(self):
-        rospy.loginfo("Moving from Box A to Box B...")
-
-        self.turn_right_90()
-        self.drive_forward_distance(self.box_distance - 0.00)
-        # self.turn_left_90()
-        rospy.loginfo("Turning left 90 degrees...")
+        rospy.loginfo("Turning right 30 degrees after grasp...")
         self.turn_for_time(
-            abs(self.turn_speed),
-            self.turn_90_duration * 90.0 / 90.0
+            -abs(self.turn_speed),
+            self.turn_90_duration * 30.0 / 90.0
         )
+        self.drive_forward_distance(0.35)
 
         rospy.sleep(2.0)
 
@@ -1040,13 +1210,15 @@ class LaundryManipulationNode:
     def move_cartesian_to_pose(self, pose, label, eef_step=0.005, min_fraction=0.90):
         rospy.loginfo("Moving to %s with Cartesian path...", label)
 
-        waypoints = [pose.pose]
-        plan, fraction = self.arm.compute_cartesian_path(
+        waypoints = [conversions.pose_to_list(pose.pose)]
+        ser_path, fraction = self.arm._g.compute_cartesian_path(
             waypoints,
             eef_step,
             0.0,
             True,
         )
+        plan = RobotTrajectory()
+        plan.deserialize(ser_path)
 
         rospy.loginfo(
             "Cartesian path to %s fraction: %.3f",
@@ -1132,11 +1304,7 @@ class LaundryManipulationNode:
             grasp_target.point.z
         )
 
-        if self.box_a_floor_z is None:
-            rospy.logwarn("Box A floor z is unknown. Using detected grasp target z.")
-            grasp_z = max(min(grasp_target.point.z, 0.55), 0.40)
-        else:
-            grasp_z = self.box_a_floor_z + self.grasp_height_above_floor
+        grasp_z = grasp_target.point.z + self.grasp_z_offset
 
         pre_grasp_z = grasp_z + 0.08
         lift_z = grasp_z + 0.18
@@ -1144,8 +1312,8 @@ class LaundryManipulationNode:
         # The gripper fingers extend forward from the controlled end-effector pose.
         # Keep the commanded pose behind the target so the fingertips, not the wrist,
         # approach the cloth.
-        grasp_x_offset = -self.gripper_tip_offset
         pre_grasp_x_offset = -(self.gripper_tip_offset + 0.17)
+        grasp_x_offset = pre_grasp_x_offset + 0.06
         lift_x_offset = -(self.gripper_tip_offset + 0.18)
 
         pre_grasp = self.make_pose(
@@ -1194,8 +1362,15 @@ class LaundryManipulationNode:
         return True
 
     def place_cloth(self, drop_target):
-        pre_drop = self.make_pose(drop_target, z_offset=0.25)
-        drop = self.make_pose(drop_target, z_offset=0.12)
+        pre_drop = self.make_pose(drop_target, z_offset=0.46)
+        drop = self.make_pose(drop_target, z_offset=0.36)
+
+        rospy.loginfo(
+            "Safe drop target: x=%.3f, y=%.3f, z=%.3f",
+            drop.pose.position.x,
+            drop.pose.position.y,
+            drop.pose.position.z
+        )
 
         if not self.move_to_pose(pre_drop, "pre-drop pose"):
             return False
@@ -1214,29 +1389,15 @@ class LaundryManipulationNode:
     def run(self):
         rospy.sleep(2.0)
 
-        # 1. Read initial grasp target from middle position
-        initial_grasp = self.wait_for_target("grasp")
-        if initial_grasp is None:
-            return
+        rospy.loginfo("YOLO pick-and-place mode with slow open-loop base motion.")
 
-        # 2. Move laterally to Box A front
-        self.lateral_move_to_target_y(initial_grasp)
-
-        # 2.5 Move closer to Box A
-        self.drive_forward_distance(-0.05)
-
-        # 3. Wait for a NEW grasp target after base motion
-        self.latest_grasp = None
-        self.latest_drop = None
-        self.clear_latest_clouds()
-        move_finish_time = rospy.Time.now()
-        rospy.sleep(2.0)
-
-        grasp_target = self.wait_for_fresh_target("grasp", move_finish_time)
+        grasp_target = self.wait_for_target("grasp")
         if grasp_target is None:
             return
 
-        self.setup_collision_scene("pick", after_time=move_finish_time)
+        if not self.setup_collision_scene("pick"):
+            rospy.logwarn("Pick collision scene setup failed.")
+            return
 
         self.executing = True
 
@@ -1246,24 +1407,25 @@ class LaundryManipulationNode:
             return
 
         self.executing = False
+
         rospy.sleep(1.0)
 
-        # 4. Move from Box A to Box B
-        self.move_from_box_a_to_box_b()
-        self.drive_forward_distance(-0.05)
-
-        # 5. Wait for a NEW drop target after base motion
         self.latest_grasp = None
         self.latest_drop = None
+        self.latest_box_b_target = None
         self.clear_latest_clouds()
-        move_finish_time = rospy.Time.now()
+
+        self.move_from_box_a_to_box_b()
+
         rospy.sleep(2.0)
 
-        drop_target = self.wait_for_fresh_target("drop", move_finish_time)
+        drop_target = self.wait_for_target("drop")
         if drop_target is None:
             return
 
-        self.setup_collision_scene("place", after_time=move_finish_time)
+        if not self.setup_collision_scene("place"):
+            rospy.logwarn("Place collision scene setup failed.")
+            return
 
         self.executing = True
 
@@ -1275,7 +1437,7 @@ class LaundryManipulationNode:
         self.executing = False
         self.stop_base()
 
-        rospy.loginfo("Laundry pick-and-place task completed.")
+        rospy.loginfo("YOLO pick-and-place task completed.")
         rospy.spin()
 
 
@@ -1285,5 +1447,3 @@ if __name__ == "__main__":
         node.run()
     except rospy.ROSInterruptException:
         pass
-
-
